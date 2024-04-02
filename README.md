@@ -15,7 +15,7 @@ This is a dummy project with arbitrary structure - the goal is to test the super
 2. clone this repo and `cd` into it
 
 > [!IMPORTANT]  
-> I added the all platforms to the `pixi.toml` but only tested for `osx-arm64`.
+> I added all platforms to the `pixi.toml` but only tested it for `osx-arm64`.
 
 ## Things you can do
 
