@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hello-fastapi"
+version = "0.1.0"
+description = "Add a short description here"
+authors = [{ name = "Matus Gasparik", email = "matus.gasparik@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["foo"]

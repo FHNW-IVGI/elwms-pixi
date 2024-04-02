@@ -1,0 +1,51 @@
+[project]
+name = "hello-fastapi"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Matus Gasparik <matus.gasparik@gmail.com>"]
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
+
+[tasks]
+postinstall = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ."
+
+[dependencies]
+python = "3.12.*"
+numpy = ">=1.20,<2"
+
+[host-dependencies]
+pip = "*"
+
+[feature.web.pypi-dependencies]
+fastapi = { version = "*", extras = ["all"] }
+[feature.web.tasks]
+dev = { cmd = "uvicorn app.main:app --reload", cwd = "src" }
+
+[feature.test.dependencies]
+pytest = "*"
+[feature.test.tasks]
+test = "pytest"
+
+[feature.lint.dependencies]
+ruff = "*"
+mypy = "*"
+[feature.lint.tasks]
+lint = "ruff check"
+fmt = "ruff format"
+mypy = "mypy $PIXI_PROJECT_ROOT/src"
+
+[feature.docs.dependencies]
+nodejs = ">=20,<21"
+[feature.docs.pypi-dependencies]
+mystmd = "*"
+[feature.docs.tasks]
+init-docs = { cmd = "myst init --write-toc", cwd = "src/docs" }
+docs = { cmd = "myst start", cwd = "src/docs", depends_on = ["init-docs"] }
+build-html = { cmd = "myst build --html && npx serve _build/html", cwd = "src/docs" }
+build-pdf = "echo Generating PDF not imlemented yet..."
+
+[environments]
+default = ["test"]
+lint = ["lint"]
+web = ["web"]
+docs = ["docs"]
